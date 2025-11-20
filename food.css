@@ -1,0 +1,266 @@
+html, body {
+    width: 100vw;
+    overflow-x: hidden;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    padding-top: 160px;
+    min-height: 80vh;
+    background-image: url('https://get.pxhere.com/photo/background-food-tasty-olives-wooden-background-cooking-plate-kitchen-gourmet-nutrition-dish-delicious-appetizer-gastronomy-dinner-salt-pepper-table-spices-spoons-tomatoes-greens-cheese-1369813.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 60vh;
+    background-position-x: 50%;
+    background-position-y: top;
+}
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    background-color: orangered;
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    z-index: 200;
+}
+#logo {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-left: 12px;
+}
+#logo i {
+    margin-right: 12px;
+    font-size: 2rem;
+}
+#hamburger div {
+    width: 25px;
+    height: 3px;
+    margin: 5px;
+    background-color: white;
+}
+#hamburger {
+    display: block;
+    cursor: pointer;
+    margin-right: 18px;
+}
+#side-menu {
+    position: fixed;
+    top: 0;
+    right: -300px;
+    height: 100%;
+    width: 270px;
+    background: #fff;
+    color: #222;
+    box-shadow: -2px 0 8px rgba(0,0,0,0.05);
+    transition: right 0.3s;
+    z-index: 300;
+    padding-top: 15px;
+}
+#side-menu.active {
+    right: 0;
+}
+#close-btn {
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    color: orangered;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+}
+#category-list {
+    list-style: none;
+    padding: 50px 20px 10px 20px;
+    margin: 0;
+}
+#category-list li {
+    font-size: 1.08rem;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+}
+#category-list li:hover {
+    color: orangered;
+    background: #f9f9f9;
+}
+.overlay {
+    display: none;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    left: 0; top: 0;
+    background: rgba(0,0,0,0.18);
+    z-index: 100;
+}
+.overlay.active {
+    display: block;
+}
+
+.main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 30px;
+}
+
+.categories-title {
+    font-size: 1.5rem;
+    margin: 16px 0 8px 0;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin-top: 150px;
+    display:block ;
+    text-align: left;
+}
+.categories-title{
+    align-self: flex-start;
+    margin-left: 100px;
+}
+
+.categories-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 26px;
+    justify-content: center;
+    margin-bottom: 16px;
+    margin-top: 100px;
+}
+
+.category-card {
+    background: #fff;
+    border-radius: 10px;
+    width: 230px;
+    height: 190px;
+    /* margin: 90px; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 2px 8px #0001;
+    padding: 24px 18px;
+    text-align: center;
+    cursor: pointer;
+    transition: box-shadow .2s;
+}
+.category-card:hover {
+    box-shadow: 0 2px 18px #0003;
+}
+.category-card img {
+    width: 250px;
+    height: 200px;
+    border-radius: 12px;
+    object-fit: cover;
+    margin-top:5px;
+}
+.category-card span {
+    font-size: 1.1rem;
+    color: #222;
+    font-weight: 600;
+}
+
+.search-area {
+    background: #fff;
+    background-repeat: no-repeat;
+    background: fixed;
+    background-size: 100%;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 2px 8px #0001;
+    padding: 32px 24px;
+    text-align: center;
+    border-radius: 10px;
+    margin: 0 auto;
+}
+.search-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+    width: 100%;
+}
+.search-box input {
+    width: 70%;
+    padding: 12px 14px;
+    font-size: 1.1rem;
+    border: 1px solid #eee;
+    border-radius: 25px 0 0 25px;
+    outline: none;
+}
+.search-box button {
+    background: orangered;
+    border: none;
+    color: #fff;
+    padding: 12px 18px;
+    font-size: 1.1rem;
+    border-radius: 0 25px 25px 0;
+    cursor: pointer;
+}
+.question, .subtext{
+    text-align: center;
+    margin-bottom: 8px;
+    width: 100%;
+}
+.question {
+    font-size: 1.25rem;
+    color: #f9f3f3;
+    font-weight: bold;
+    margin: 16px 0 6px 0;
+}
+.subtext {
+    color: #f9f3f3;
+    font-size: 1rem;
+    margin-bottom: 0;
+}
+#results {
+    width: 100vw;
+    max-width: none;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 26px;
+    justify-content: center;
+}
+.result-card {
+    /* background: #fff;
+    border-radius: 10px;
+    width: 320px;
+    height: 250px; 
+    box-shadow: 0 2px 8px #0001;
+    padding: 24px 16px;
+    display:block;
+    transition: box-shadow .2s;*/
+    margin-top: 70px; 
+    width: 18%;
+    min-width: 180px;
+    height: 250px;
+}
+.result-card img {
+    width:100%;
+    max-width: 140px;
+    margin: 20px auto 10px auto;
+    border-radius: 10px;
+    /* margin-bottom: 10px; */
+    display: block;
+}
+.result-card h3 {
+    font-size: 1.1rem;
+    margin: 10px 0 0;
+    color: #444;
+    font-weight: 600;
+}
+.result-card:hover{
+    box-shadow: 0 8px 24px black;
+    
+}
+#results .not-found {
+    width: 100%;
+    text-align: center;
+    color: rgb(16, 16, 16);
+    font-size: 1.2rem;
+    margin-top: 35px;
+}

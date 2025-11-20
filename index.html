@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>MealFinder Categories Navbar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link rel="stylesheet" href="./food.css">
+</head>
+
+<body>
+    <header>
+        <div id="logo">
+            <i class="fa-solid fa-utensils"></i>
+            <span style="font-size: 1.25rem; font-weight: bold;">MealFinder</span>
+        </div>
+        <div id="hamburger">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </header>
+
+    <div id="side-menu">
+        <button id="close-btn"><i class="fa-solid fa-circle-xmark"></i></button>
+        <ul id="category-list"></ul>
+    </div>
+    <div class="overlay" id="overlay"></div>
+
+
+
+    <section class="search-area">
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search recipes here...">
+            <button id="searchBtn"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+        <h2 class="question">What are your favorite cuisine?</h2>
+        <p class="subtext">PERSONALIZE YOUR EXPERIENCE</p>
+    </section>
+
+    <main class="main-content">
+        <!-- === CATEGORIES CARDS ROW BELOW === -->
+        <div class="categories-title">CATEGORIES</div>
+        <div id="categories-card-row" class="categories-row"></div>
+
+        <div id="results"></div>
+    </main>
+    <script src="./app.js"></script>
+</body>
+
+</html>
