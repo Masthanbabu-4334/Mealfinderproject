@@ -1,13 +1,13 @@
-const hamburger = document.getElementById('hamburger');
-const sideMenu = document.getElementById('side-menu');
-const closeBtn = document.getElementById('close-btn');
-const overlay = document.getElementById('overlay');
-const logo = document.getElementById('logo');
-const categoryList = document.getElementById('category-list');
-const searchBtn = document.getElementById('searchBtn');
-const searchInput = document.getElementById('searchInput');
-const resultsDiv = document.getElementById('results');
-const categoriesCardRow = document.getElementById('categories-card-row');
+let hamburger = document.getElementById('hamburger');
+let sideMenu = document.getElementById('side-menu');
+let closeBtn = document.getElementById('close-btn');
+let overlay = document.getElementById('overlay');
+let logo = document.getElementById('logo');
+let categoryList = document.getElementById('category-list');
+let searchBtn = document.getElementById('searchBtn');
+let searchInput = document.getElementById('searchInput');
+let resultsDiv = document.getElementById('results');
+let categoriesCardRow = document.getElementById('categories-card-row');
 
 // Hamburger open
 hamburger.onclick = () => {
