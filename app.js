@@ -70,7 +70,7 @@ categoryList.onclick = function(e) {
     }
 };
 
-// Show category cards above search bar by default
+// CATEGORY CARDS WITH TOP-RIGHT LABEL
 fetch('https://www.themealdb.com/api/json/v1/1/categories.php')
     .then(response => response.json())
     .then(data => {
@@ -78,6 +78,7 @@ fetch('https://www.themealdb.com/api/json/v1/1/categories.php')
           .map(cat => `
             <div class="category-card" data-category="${cat.strCategory}">
                 <img src="${cat.strCategoryThumb}" alt="${cat.strCategory}">
+                <div class="category-label">${cat.strCategory}</div>
                 <span>${cat.strCategory}</span>
             </div>
           `)
