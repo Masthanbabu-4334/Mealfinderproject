@@ -46,7 +46,7 @@ categoryList.onclick = function(e) {
     if (e.target.tagName === 'LI') {
         const category = e.target.getAttribute('data-category');
         resultsDiv.innerHTML = '<div>Loading...</div>';
-        fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
+        fetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}')
             .then(res => res.json())
             .then(data => {
                 categoriesCardRow.style.display = 'none';
@@ -95,7 +95,7 @@ categoriesCardRow.onclick = function(e) {
     document.querySelector('.categories-title').style.display = 'none';
     const category = card.getAttribute('data-category');
     resultsDiv.innerHTML = '<div>Loading...</div>';
-    fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
+    fetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}')
         .then(res => res.json())
         .then(data => {
             if (!data.meals) {
@@ -125,7 +125,7 @@ function doSearch() {
     categoriesCardRow.style.display = 'none';
     document.querySelector('.categories-title').style.display = 'none';
     resultsDiv.innerHTML = '<div>Loading...</div>';
-    fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${food}`)
+    fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=${food}')
         .then(res => res.json())
         .then(data => {
             if (!data.meals) {
