@@ -45,107 +45,154 @@ fetch(`https://www.themealdb.com/api/json/v1/1/categories.php`)
 categoryList.onclick = function(e) {
     if (e.target.tagName === 'LI') {
         const category = e.target.getAttribute('data-category');
-        resultsDiv.innerHTML = '<div>Loading...</div>';
-        fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
-            .then(res => res.json())
-            .then(data => {
-                categoriesCardRow.style.display = 'none';
-                document.querySelector('.categories-title').style.display = 'none';
-                if (!data.meals) {
-                    resultsDiv.innerHTML = '<div class="not-found">No recipes found!</div>';
-                    return;
-                }
-                resultsDiv.innerHTML = data.meals
-                    .map(meal => `
-                        <div class="result-card">
-                            <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
-                            <h3>${meal.strMeal}</h3>
-                        </div>
-                    `).join('');
-            })
-            .catch(() => {
-                resultsDiv.innerHTML = '<div class="not-found">Error loading recipes.</div>';
-            });
+        showMealsByCategory(category);
         closeMenu();
     }
 };
 
-// Show category cards above search bar by default
-fetch(`https://www.themealdb.com/api/json/v1/1/categories.php`)
-    .then(response => response.json())
-    .then(data => {
-        categoriesCardRow.innerHTML = data.categories
-          .map(cat => `
-            <div class="category-card" data-category="${cat.strCategory}">
-                <img src="${cat.strCategoryThumb}" alt="${cat.strCategory}">
-                <span>${cat.strCategory}</span>
-            </div>
-          `)
-          .join('');
-    })
-    .catch(() => {
-        categoriesCardRow.innerHTML = "<div>Error loading categories</div>";
-    });
+// Show category cards below search results always
+function renderCategories() {
+    fetch(`https://www.themealdb.com/api/json/v1/1/categories.php`)
+        .then(response => response.json())
+        .then(data => {
+            categoriesCardRow.innerHTML = data.categories
+            .map(cat => `
+                <div class="category-card" data-category="${cat.strCategory}">
+                    <img src="${cat.strCategoryThumb}" alt="${cat.strCategory}">
+                    <span>${cat.strCategory}</span>
+                </div>
+            `)
+            .join('');
+            categoriesCardRow.style.display = 'flex';  
+            document.querySelector('.categories-title').style.display = 'block'; 
+        })
+        .catch(() => {
+            categoriesCardRow.innerHTML = "<div>Error loading categories</div>";
+        });
+}
 
-// Clicking a category card loads recipes and hides category cards
+// On load, render categories
+renderCategories();
+
+// Clicking a category card loads recipes and shows categories below
 categoriesCardRow.onclick = function(e) {
     const card = e.target.closest('.category-card');
     if (!card) return;
-    categoriesCardRow.style.display = 'none';
-    document.querySelector('.categories-title').style.display = 'none';
-    const category = card.getAttribute('data-category');
-    resultsDiv.innerHTML = '<div>Loading...</div>';
+    showMealsByCategory(card.getAttribute('data-category'));
+};
+
+// Render meals for category
+function showMealsByCategory(category) {
+    resultsDiv.innerHTML = '<div>Loading...</div>';  
     fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`)
         .then(res => res.json())
         .then(data => {
+            let html = `<div class="meals-heading">MEALS</div><div class="search-results-container">`;
             if (!data.meals) {
-                resultsDiv.innerHTML = '<div class="not-found">No recipes found!</div>';
-                return;
-            }
-            resultsDiv.innerHTML = data.meals
-                .map(meal => `
-                    <div class="result-card">
+                html += '<div class="not-found">No recipes found!</div>';
+            } else {
+                html += data.meals.map(meal => `
+                    <div class="result-card" data-mealid="${meal.idMeal}">
+                        <div class="cuisine">${category}</div>
                         <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
                         <h3>${meal.strMeal}</h3>
                     </div>
                 `).join('');
+            }
+            html += '</div>';
+            resultsDiv.innerHTML = html;
+            renderCategories();  
         })
         .catch(() => {
             resultsDiv.innerHTML = '<div class="not-found">Error loading recipes.</div>';
+            renderCategories();  
         });
-};
+}
 
 // Search API: recipe search
 function doSearch() {
     const food = searchInput.value.trim();
     if (!food) {
         resultsDiv.innerHTML = '';
+        renderCategories();
         return;
     }
-    categoriesCardRow.style.display = 'none';
-    document.querySelector('.categories-title').style.display = 'none';
     resultsDiv.innerHTML = '<div>Loading...</div>';
     fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${food}`)
         .then(res => res.json())
         .then(data => {
+            let html = `<div class="meals-heading">MEALS</div><div class="search-results-container">`;
             if (!data.meals) {
-                resultsDiv.innerHTML = '<div class="not-found">No recipes found!</div>';
-                return;
-            }
-            resultsDiv.innerHTML = data.meals
-                .map(meal => `
-                    <div class="result-card">
+                html += '<div class="not-found">No recipes found!</div>';
+            } else {
+                html += data.meals.map(meal => `
+                    <div class="result-card" data-mealid="${meal.idMeal}">
+                        <div class="cuisine">${meal.strArea || ''}</div>
                         <img src="${meal.strMealThumb}" alt="${meal.strMeal}">
                         <h3>${meal.strMeal}</h3>
                     </div>
-                `)
-                .join('');
+                `).join('');
+            }
+            html += '</div>';
+            resultsDiv.innerHTML = html;
+            renderCategories();
         })
         .catch(() => {
             resultsDiv.innerHTML = '<div class="not-found">Error loading recipes.</div>';
+            renderCategories();
         });
 }
 searchBtn.onclick = doSearch;
 searchInput.addEventListener('keypress', e => {
     if (e.key === 'Enter') doSearch();
 });
+
+// When clicking a meal card, go to meal details page
+resultsDiv.onclick = function(e) {
+    const card = e.target.closest('.result-card');
+    if (!card) return;
+    const mealId = card.getAttribute('data-mealid');
+    showMealDetails(mealId);
+}
+
+// Show meal details in a modal or section
+function showMealDetails(mealId) {
+    resultsDiv.innerHTML = '<div>Loading meal details...</div>';
+    fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`)
+        .then(res => res.json())
+        .then(data => {
+            if (!data.meals) {
+                resultsDiv.innerHTML = '<div class="not-found">Meal details not found!</div>';
+                renderCategories();
+                return;
+            }
+            const meal = data.meals[0];
+            let ingredients = '';
+            for (let i = 1; i <= 20; i++) {
+                let ingredient = meal["strIngredient" + i];
+                let measure = meal["strMeasure" + i];
+                if (ingredient && ingredient.trim()) {
+                    ingredients += `<li>${ingredient}${measure ? ' - ' + measure : ''}</li>`;
+                }
+            }
+            resultsDiv.innerHTML = `
+                <div class="details-heading">MEAL DETAILS</div>
+                <div class="meal-details-container">
+                    <img class="details-img" src="${meal.strMealThumb}" alt="${meal.strMeal}">
+                    <div class="meal-info">
+                        <h2>${meal.strMeal}</h2>
+                        <strong>Category:</strong> ${meal.strCategory}<br>
+                        <strong>Area:</strong> ${meal.strArea}<br>
+                        <strong>Source:</strong> <a href="${meal.strSource || "#"}" target="_blank">${meal.strSource || "Not available"}</a><br>
+                        <strong>Tags:</strong> ${meal.strTags || "None"}<br>
+                        <ul class="ingredients-list">${ingredients}</ul>
+                    </div>
+                </div>
+            `;
+            renderCategories();
+        })
+        .catch(() => {
+            resultsDiv.innerHTML = '<div class="not-found">Error loading meal details.</div>';
+            renderCategories();
+        });
+}
