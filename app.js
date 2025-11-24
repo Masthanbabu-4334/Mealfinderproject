@@ -181,12 +181,12 @@ function showMealDetails(mealId) {
 
             // Ingredients HTML
             let ingredientsHTML = ingredientsArr.map((ing, idx) => 
-                `<span class="ingredient-pill"><i class="fa-solid fa-circle" style="font-size:0.9em;color:#ffb811"></i> ${ing}</span>`
+                `<span class="ingredient-pill"><i class="fa-solid fa-circle" style="font-size:0.9em;color:blue" ></i> ${ing}</span>`
             ).join('');
 
             // Measures HTML
             let measuresHTML = measuresArr.map(val => 
-                `<span class="measure-pill"><i class="fa-solid fa-check" style="font-size:0.95em;color:#eb5310"></i> ${val}</span>`
+                `<span class="measure-pill"><i class="fa-solid fa-check" style="font-size:0.95em;color:orangered"></i> ${val}</span>`
             ).join('');
 
             resultsDiv.innerHTML = `
