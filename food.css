@@ -114,9 +114,10 @@ header {
     font-weight: bold;
     letter-spacing: 1px;
     margin-bottom: 18px;
-    margin-top: 50px;
+    margin-top: 90px;
     text-align: left;
-    margin-left: 100px;
+    margin-left: -1300px;
+   
 }
 
 .search-area {
@@ -292,3 +293,149 @@ header {
     font-size: 1.2rem;
     margin-top: 35px;
 }
+
+
+
+.meal-details-container {
+    display: flex;
+    flex-direction: row;
+    gap: 22px;
+    padding: 28px 24px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 2px 16px #0001;
+    margin: 22px 0 30px 0;
+}
+.details-img {
+    width:40%;
+    height: 850px;
+    border-radius: 10px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+.meal-info {
+    flex: 2;
+    text-align: left;
+}
+.meal-title-detail {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 8px;
+    margin-top: 0;
+    color: #222;
+}
+.meal-meta {
+    margin-bottom: 16px;
+    font-size: 1rem;
+    color: #555;
+}
+.meal-meta a {
+    color: #ca5010;
+    text-decoration: underline;
+    word-break: break-all;
+}
+
+/* Orange box with ingredient pills and icons*/
+.ingredients-box {
+    background: #eb5310;
+    color: #fff;
+    border-radius: 8px;
+    padding: 16px 18px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 370px;
+}
+
+.ingredients-title {
+    font-weight: bold;
+    font-size: 1.07rem;
+    margin-bottom: 6px;
+}
+
+.ingredient-list-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px 10px;
+}
+
+.ingredient-pill {
+    background: #fff7e6;
+    color: #111111;
+    border-radius: 22px;
+    padding: 5px 16px;
+    font-size: 1.03rem;
+    margin: 0 4px 6px 0;
+    font-weight: 600;
+    box-shadow: 0 2px 4px #0001;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Measures pills */
+.measure-box {
+    margin: 18px 0 10px 0;
+}
+.measure-title {
+    font-weight: bold;
+    font-size: 1.07rem;
+    margin-bottom: 8px;
+}
+.measure-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+}
+.measure-pill {
+    background: #edecec;
+    color: #545454;
+    border-radius: 18px;
+    padding: 4px 13px;
+    font-size: 1.00rem;
+    margin: 0 5px 6px 0;
+    font-weight: 500;
+    box-shadow: 0 2px 2px #0001;
+    display: flex;
+    align-items: center;
+}
+
+/* Instructions are normal */
+.instructions-title {
+    font-weight: bold;
+    font-size: 1.07rem;
+    margin: 20px 0 10px 0;
+    color: #444;
+}
+.description-area {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: #484848;
+    background: none;
+    border-radius: 0;
+    margin-bottom: 0;
+}
+
+
+/* Instructions list styled as nice points */
+.description-area ul {
+    list-style-type: disc;          /* bullet points */
+    padding-left: 22px;             /* space from left edge */
+    margin: 0;
+}
+
+.description-area  li {
+    margin-bottom: 6px;             /* space between steps */
+    line-height: 1.6;
+    font-size: 1.03rem;
+    color: #444;
+}
+
+/* optional: use a custom icon instead of default bullet */
+.description-area li::marker {
+    color: #3a03d1;                 /* bullet color */
+    font-size: 1.1rem;
+}
+
+

@@ -167,25 +167,50 @@ function showMealDetails(mealId) {
                 return;
             }
             const meal = data.meals[0];
-            let ingredients = '';
+
+            // Build ingredients and measures arrays
+            let ingredientsArr = [], measuresArr = [];
             for (let i = 1; i <= 20; i++) {
                 let ingredient = meal["strIngredient" + i];
                 let measure = meal["strMeasure" + i];
                 if (ingredient && ingredient.trim()) {
-                    ingredients += `<li>${ingredient}${measure ? ' - ' + measure : ''}</li>`;
+                    ingredientsArr.push(ingredient.trim());
+                    if (measure && measure.trim()) measuresArr.push(measure.trim());
                 }
             }
+
+            // Ingredients HTML
+            let ingredientsHTML = ingredientsArr.map((ing, idx) => 
+                `<span class="ingredient-pill"><i class="fa-solid fa-circle" style="font-size:0.9em;color:#ffb811"></i> ${ing}</span>`
+            ).join('');
+
+            // Measures HTML
+            let measuresHTML = measuresArr.map(val => 
+                `<span class="measure-pill"><i class="fa-solid fa-check" style="font-size:0.95em;color:#eb5310"></i> ${val}</span>`
+            ).join('');
+
             resultsDiv.innerHTML = `
                 <div class="details-heading">MEAL DETAILS</div>
                 <div class="meal-details-container">
                     <img class="details-img" src="${meal.strMealThumb}" alt="${meal.strMeal}">
                     <div class="meal-info">
-                        <h2>${meal.strMeal}</h2>
-                        <strong>Category:</strong> ${meal.strCategory}<br>
-                        <strong>Area:</strong> ${meal.strArea}<br>
-                        <strong>Source:</strong> <a href="${meal.strSource || "#"}" target="_blank">${meal.strSource || "Not available"}</a><br>
-                        <strong>Tags:</strong> ${meal.strTags || "None"}<br>
-                        <ul class="ingredients-list">${ingredients}</ul>
+                        <h2 class="meal-title-detail">${meal.strMeal}</h2>
+                        <div class="meal-meta">
+                            <div><b>Category:</b> ${meal.strCategory}</div>
+                            <div><b>Area:</b> ${meal.strArea}</div>
+                            ${meal.strSource ? `<div><b>Source:</b> <a href="${meal.strSource}" target="_blank">${meal.strSource}</a></div>` : ''}
+                            <div><b>Tags:</b> ${meal.strTags || "None"}</div>
+                        </div>
+                        <div class="ingredients-box">
+                            <div class="ingredients-title">Ingredients:</div>
+                            <div class="ingredient-list-grid">${ingredientsHTML}</div>
+                        </div>
+                        <div class="measure-box">
+                            <div class="measure-title">Measure:</div>
+                            <div class="measure-list">${measuresHTML}</div>
+                        </div>
+                        <div class="instructions-title">Instructions:</div>
+                        <div class="description-area">${meal.strInstructions || ""}</div>
                     </div>
                 </div>
             `;
